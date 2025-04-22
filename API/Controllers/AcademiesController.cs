@@ -1,5 +1,6 @@
 using System;
 using Application.Academies.Commands;
+using Application.Academies.DTOs;
 using Application.Academies.Queries;
 using Domain;
 using MediatR;
@@ -23,9 +24,9 @@ public class AcademiesController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> CreateAcademy(Academy academy)
+    public async Task<ActionResult<string>> CreateAcademy(CreateAcademyDto academyDto)
     {
-        return await Mediator.Send(new CreateAcademy.Command{Academy = academy});
+        return await Mediator.Send(new CreateAcademy.Command{AcademyDto = academyDto});
     }
 
     
