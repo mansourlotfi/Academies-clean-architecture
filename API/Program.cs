@@ -1,3 +1,5 @@
+using Application.Academies.Queries;
+using Application.Core;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -22,6 +24,9 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
      opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 }
 );
+builder.Services.AddCors();
+builder.Services.AddMediatR(x=>x.RegisterServicesFromAssemblyContaining<GetAcademyList.Handler>());
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 // builder.Services.AddOpenApi();
@@ -36,6 +41,29 @@ var app = builder.Build();
 // }
 
 // app.UseHttpsRedirection();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors(opt =>
+    {
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000,https://localhost:3000");
+    });
+
+}else
+{
+    app.UseCors(opt =>
+    {
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:3000,https://localhost:3000");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://vercel.app");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://academies.vercel.app");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://*.vercel.app");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://darkube.app");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://academies-admin.darkube.app");
+        opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://*.darkube.app")
+                .SetIsOriginAllowedToAllowWildcardSubdomains(); ;
+
+    });
+}
 
 app.UseAuthorization();
 
