@@ -1,3 +1,4 @@
+using API.Middleware;
 using Application.Academies.Queries;
 using Application.Academies.Validators;
 using Application.Core;
@@ -34,6 +35,7 @@ builder.Services.AddMediatR(x=>
 });
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 builder.Services.AddValidatorsFromAssemblyContaining<CreateAcademyValidator>();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -41,6 +43,8 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateAcademyValidator>();
 
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
