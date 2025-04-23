@@ -20,29 +20,28 @@ public class AcademiesController : BaseApiController
     [HttpGet("{id}")]
       public async Task<ActionResult<Academy>> GetAcademyDetails(string id)
     {
-        return await Mediator.Send(new GetAcademyDetails.Query{Id = id});
+        return HandleResult(await Mediator.Send(new GetAcademyDetails.Query{Id = id}));
+
     }
 
     [HttpPost]
     public async Task<ActionResult<string>> CreateAcademy(CreateAcademyDto academyDto)
     {
-        return await Mediator.Send(new CreateAcademy.Command{AcademyDto = academyDto});
+        return HandleResult(await Mediator.Send(new CreateAcademy.Command{AcademyDto = academyDto}));
     }
 
     
     [HttpPut]
     public async Task<ActionResult> EditAcademy(Academy academy)
     {
-         await Mediator.Send(new EditAcademy.Command{Academy = academy});
+         return HandleResult(await Mediator.Send(new EditAcademy.Command{Academy = academy}));
 
-         return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteAcademy(string id)
     {
-        await Mediator.Send(new DeleteAcademy.Command{Id = id});
-        return Ok();
+        return HandleResult(await Mediator.Send(new DeleteAcademy.Command{Id = id}));
     }
 
 }
