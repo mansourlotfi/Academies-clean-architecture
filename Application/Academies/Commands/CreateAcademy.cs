@@ -1,5 +1,8 @@
 using System;
+using Application.Academies.DTOs;
+using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
 
@@ -10,15 +13,16 @@ public class CreateAcademy
 
 public class Command : IRequest<string>
 {
-    public required Academy Academy { get; set; }
+    public required CreateAcademyDto AcademyDto { get; set; }
 }
-    public class Handler(AppDbContext context) : IRequestHandler<Command, string>
+    public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, string>
     {
         public async Task<string> Handle(Command request, CancellationToken cancellationToken)
         {
-            context.Academies.Add(request.Academy);
+            var academy = mapper.Map<Academy>(request.AcademyDto);
+            context.Academies.Add(academy);
             await context.SaveChangesAsync(cancellationToken);
-            return request.Academy.Id;
+            return academy.Id;
         }
     }
 }

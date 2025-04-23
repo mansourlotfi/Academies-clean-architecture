@@ -1,4 +1,5 @@
 using System;
+using Application.Academies.DTOs;
 using AutoMapper;
 using Domain;
 
@@ -8,7 +9,8 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Academy,Academy>();
+        CreateMap<Academy, Academy>();
+        CreateMap<CreateAcademyDto, Academy>();
         
     }
 

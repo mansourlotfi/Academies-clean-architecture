@@ -17,7 +17,11 @@ public class DbInitializer
             Address="رشت - نامجو",
             ContactInfo="+989117196381",
             CreatedDate=DateTime.Now.AddMonths(-1),
-            UpdatedDate=DateTime.Now.AddDays(-2)
+            UpdatedDate=DateTime.Now.AddDays(-2),
+            City="Rasht",
+            IsActive=true,
+            Latitude=64.06453,
+            Longitude=-90.28901
             },
              new() 
             { 
@@ -25,7 +29,11 @@ public class DbInitializer
             Address="رشت - فلکه گاز",
             ContactInfo="+989117196381",
             CreatedDate=DateTime.Now.AddMonths(-1),
-            UpdatedDate=DateTime.Now.AddDays(-2)
+            UpdatedDate=DateTime.Now.AddDays(-2),
+            City="Rasht",
+            IsActive=true,
+            Latitude=64.06453,
+            Longitude=-90.28901
             }
         };
         context.Academies.AddRange(academies);
