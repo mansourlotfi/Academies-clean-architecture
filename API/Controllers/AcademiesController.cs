@@ -32,9 +32,9 @@ public class AcademiesController : BaseApiController
 
     
     [HttpPut]
-    public async Task<ActionResult> EditAcademy(Academy academy)
+    public async Task<ActionResult> EditAcademy(EditAcademyDto academyDto)
     {
-         return HandleResult(await Mediator.Send(new EditAcademy.Command{Academy = academy}));
+         return HandleResult(await Mediator.Send(new EditAcademy.Command{AcademyDto = academyDto}));
 
     }
 

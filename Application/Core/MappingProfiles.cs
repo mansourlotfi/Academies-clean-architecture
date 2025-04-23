@@ -11,6 +11,7 @@ public class MappingProfiles : Profile
     {
         CreateMap<Academy, Academy>();
         CreateMap<CreateAcademyDto, Academy>();
+        CreateMap<EditAcademyDto, Academy>();
         
     }
 
